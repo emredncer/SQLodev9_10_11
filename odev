@@ -1,0 +1,104 @@
+ÖDEV 9
+1.city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+2.customer tablosu ile payment tablosunda bulunan payment_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+3.customer tablosu ile rental tablosunda bulunan rental_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+--------------------------
+1. sorunun cevabı
+SELECT country, city FROM country
+INNER JOIN city ON country.country_id=city.country_id;
+--------------------------
+2. sorunun cevabı
+SELECT first_name,last_name,payment_id FROM customer
+INNER JOIN payment ON customer.customer_id=payment.customer_id;
+--------------------------
+3. sorunun cevabı
+SELECT rental_id,first_name,last_name FROM rental
+INNER JOIN customer ON rental.customer_id=customer.customer_id;
+--------------------------
+
+
+
+ÖDEV 10
+1.city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz LEFT JOIN sorgusunu yazınız.
+2.customer tablosu ile payment tablosunda bulunan payment_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz RIGHT JOIN sorgusunu yazınız.
+3.customer tablosu ile rental tablosunda bulunan rental_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz FULL JOIN sorgusunu yazınız.
+--------------------------------
+1. sorunun cevabı
+SELECT city, country FROM country
+LEFT OUTER JOIN city ON country.country_id=city.country_id;
+--------------------------------
+2. sorunun cevabı
+SELECT payment_id,first_name,last_name FROM customer
+RIGHT JOIN payment ON customer.customer_id=payment.customer_id;
+--------------------------------
+3. sorunun cevabı
+SELECT rental_id,first_name,last_name FROM customer
+FULL OUTER JOIN rental ON customer.customer_id=rental.customer_id;
+--------------------------------
+
+
+
+ÖDEV 11
+1.actor ve customer tablolarında bulunan first_name sütunları için tüm verileri sıralayalım.
+2.actor ve customer tablolarında bulunan first_name sütunları için kesişen verileri sıralayalım.
+3.actor ve customer tablolarında bulunan first_name sütunları için ilk tabloda bulunan ancak ikinci tabloda bulunmayan verileri sıralayalım.
+4.İlk 3 sorguyu tekrar eden veriler için de yapalım.
+----------------------------------
+1. sorunun cevabı
+(
+SELECT first_name FROM actor
+)
+UNION
+(
+SELECT first_name FROM customer
+);
+-----------------------------------
+2. sorunun cevabı
+(
+SELECT first_name FROM actor
+)
+INTERSECT
+(
+SELECT first_name FROM customer
+);
+-----------------------------------
+3. sorunun cevabı
+(
+SELECT first_name FROM actor
+)
+INTERSECT
+(
+SELECT first_name FROM customer
+);
+------------------------------------
+4.sorunun cevabı
+4.1
+(
+SELECT first_name FROM actor
+)
+UNION ALL
+(
+SELECT first_name FROM customer
+);
+--
+4.2
+(
+SELECT first_name FROM actor
+)
+INTERSECT
+(
+SELECT first_name FROM customer
+);
+--INTERSECT anahtar sözcüğü bize iki tabloda kesişen verileri döndüreceğinden burada ALL anahtar sözcüğünü eklememin
+--herhangi bir mantığı yok!
+--
+4.3
+SELECT first_name FROM actor
+)
+EXCEPT
+(
+SELECT first_name FROM customer
+);
+--EXCEPT anahtar sözcüğü ilk sorguda bulunan ancak ikinci sorguda bulunmayan ortak verileri döndürür
+--Bu sebeple ALL anahtar kelimesini eklememin herhangi bir mantığı bulunmuyour.
+---------------------------------
